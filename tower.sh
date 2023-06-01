@@ -92,6 +92,7 @@ if [ $Height -gt 9 ]; then
   exit 1
 fi
 
+<<<<<<< HEAD
 # $1-Height $2-source $3-aux $4-destination
 automatic() {
   if [ "$1" -le 0 ]; then
@@ -107,6 +108,8 @@ automatic() {
 }
 
 
+=======
+>>>>>>> origin/master
 print() {
   echo "Towers:"
   for i in {1..3}; do   #A loop is initiated using for i in {1..3}; do. This loop iterates over the values 1, 2, and 3.
@@ -131,6 +134,7 @@ print() {
 
 # Function to move a level from one tower to another
 move() {
+<<<<<<< HEAD
   local TW1="T$1"
   local TW2="T$2"
   local SOURCE="${!TW1}"
@@ -190,6 +194,10 @@ move1() {
 echo "zzz"
 echo "${!TW1}"
 echo "zzz"
+=======
+  local TW1="T$1" #The line local TW1="T$1" creates a variable named TW1 with a value of "T1", "T2", or "T3" based on the first argument passed to the function
+  local TW2="T$2" #The line local TW2="T$2" creates a variable named TW2 with a value of "T1", "T2", or "T3" based on the second argument passed to the function.
+>>>>>>> origin/master
 
   # Check if the source tower exists
   if ! [ -d "${!TW1}" ]; then
@@ -236,6 +244,7 @@ T1="$Dir/tower1"
 T2="$Dir/tower2"
 T3="$Dir/tower3"
 mkdir -p "$T1" "$T2" "$T3" #create three directories - towers
+<<<<<<< HEAD
 for ((i = 1; i <= Height; i++)); do
   touch "$T1/level${i}" #create files
 done
@@ -260,12 +269,37 @@ automatic $Height $T1 $T2 $T3
 # fi
 
   print
+=======
+for i in $(seq 1 $Height); do
+  touch "$T1/level$i" #create files
+done
+
+while [[ $END -eq 0 ]]; do
+  print
+  echo "Enter two numbers: the tower you want to move a level from, and what tower to put it on: "
+  echo "FROM TO"
+  read -r TW1 TW2
+
+if (( TW1 >= 1 && TW1 <= 3 && TW2 >= 1 && TW2 <= 3 )); then
+  move "$TW1" "$TW2"
+elif ((( TW1 < 1 || TW1 > 3 ) && ( TW2 < 1 || TW2 > 3 ))); then
+  echo "Both chosen towers do not exist"
+elif (( TW1 < 1 || TW1 > 3 )); then
+  echo "Tower FROM which you want to move a disk does not exist"
+elif (( TW2 < 1 || TW2 > 3 )); then
+  echo "Tower TO which you want to move a disk does not exist"
+fi
+>>>>>>> origin/master
   # Check if the game is finished
   if [[ -z "$(ls -A "$T1")" && -z "$(ls -A "$T2")" ]]; then #if two first towers are empty the game is won
     echo "Congratulations! You have successfully completed the game."
     print
     END=1
   fi
+<<<<<<< HEAD
 # read x
 # done
 
+=======
+done
+>>>>>>> origin/master
